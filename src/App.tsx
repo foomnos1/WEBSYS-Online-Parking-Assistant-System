@@ -1,119 +1,83 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
+import { useEffect, useState } from 'react'
+import { supabase } from './supabase'
 import './App.css'
 
+type Park = {
+  id: number
+  aisle_number: string
+  status: string
+  floor_number: number
+}
+
+// for dashboard, for now
 function App() {
-  const [count, setCount] = useState(0)
+  const [park, setPark] = useState<Park[]>([])
+
+  async function getParks() {
+    const { data, error } = await supabase.from('parks').select()
+    if (error) {
+      console.log('Error fetching parks:', error)
+    } else {
+      setPark(data || [])
+    }
+  }
+
+  useEffect(() => {
+    getParks()
+  }, [])
 
   return (
     <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
+      {/* <div className='loginBody'>
+        <div className="loginContainer">
+          <h2>Parking Assistant System</h2>
+          <p>Sign in to manage parking slots</p>
+          
+          <div>
+            <label>Username:</label>
+          </div>
+        </div>
+      </div>*/}
+
+      <div className="dashboardHeader">
+        <div className='title'>
+          <div className="logo"></div>
+          <h2>Online Parking Assistant System</h2>
         </div>
         <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
-          </p>
+          <button className='btn-logout'>Logout</button>
         </div>
-        <button
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+      </div>
 
-      <div className="ticks"></div>
-
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
+      <div className="dashboardContent">
+        <div className='parkingInformation'>
+          <h3>Parking Information</h3>
+          <div className="information">
+            <div className='card'>
+              <div>
+                <p>Total Slots</p>
+                <h2>{park.length}</h2>
+              </div>
+              <div className='icon'><i className="fa-solid fa-car"></i></div>
+            </div>
+            <div className='card'>
+              <div>
+                <p>Available Slots</p>
+                <h2>{park.filter(p => p.status === 'vacant').length}</h2>
+              </div>
+              <div className='icon'><i className="fa-regular fa-circle-check"></i></div>
+            </div>
+            <div className='card'>
+              <div>
+                <p>Occupied Slots</p>
+                <h2>{park.filter(p => p.status === 'occupied').length}</h2>
+              </div>
+              <div className='icon'><i className="fa-regular fa-circle-xmark"></i></div>
+            </div>
+          </div>
         </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
+        <div className='mainContent'></div>
+      </div>
     </>
   )
 }
