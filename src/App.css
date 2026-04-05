@@ -16,19 +16,18 @@
 .loginContainer {
   display: flex;
   flex-direction: column;
-  padding: 10px;
+  padding: 30px;
   border: 1px solid #ccc;
   border-radius: 5px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.loginContainer h2, .loginContainer p {
+.loginContainer h4, .loginContainer p, .loginContainer h1 {
   text-align: center;
 }
 
-.loginContainer h2 {
-  margin: 10px 0;
-  text-align: center;
+.loginContainer h4 {
+  margin: 0 0 10px;
 }
 
 .loginContainer p {
@@ -37,6 +36,28 @@
 
 .loginContainer div{
   margin: 10px 0;
+}
+
+.loginContainer .inputGroup{
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.inputGroup input{
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+
+.inputGroup button{
+  padding: 8px;
+  border: none;
+  background-color: green;
+  color: white;
+  border-radius: 3px;
+  cursor: pointer;
 }
 
 .dashboardHeader{
@@ -97,17 +118,17 @@
   border-radius: 35%;
 }
 
-.fa-car{
+.dashboardContent .fa-car{
   color: #3b76fc;
   background-color: #daeaff;
 }
 
-.fa-circle-check{
+.dashboardContent .fa-circle-check{
   color: #01a73e;
   background-color: #dafde7;
 }
 
-.fa-circle-xmark{
+.dashboardContent .fa-circle-xmark{
   color: #e7010a;
   background-color: #fdd8d8;
 }
