@@ -1,9 +1,7 @@
-import { useEffect, useState } from 'react'
-import { Router, useNavigate, useParams } from 'react-router-dom'
-import { supabase } from './../supabase'
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
-// for dashboard, for now
-function App() {
+function Login() {
     const Navigate = useNavigate()
 
     const [name, setName] = useState('')
@@ -37,4 +35,4 @@ function App() {
 
 }
 
-export default App
+export default Login
