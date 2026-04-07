@@ -7,14 +7,11 @@ import Dashboard from './portal/dashboard'
 
 // for dashboard, for now
 function App() {
-  const [name, setName] = useState('')
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
-
   return (
     <>
       <Routes>
         <Route path="/" element={<Login />} />
-        <Route path="/dashboard/:name" element={<Dashboard />} />
+        <Route path="/dashboard/:name/:password" element={<Dashboard />} />
       </Routes>
     </>
   )
