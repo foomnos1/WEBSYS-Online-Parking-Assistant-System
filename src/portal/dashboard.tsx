@@ -14,10 +14,17 @@ type Park = {
 function Dashboard() {
     const Navigate = useNavigate()
     const [park, setPark] = useState<Park[]>([])
+<<<<<<< HEAD
     const { name, password } = useParams()
 
     // IF THE LOGGED IN NAME IS 'admin', THIS IS TRUE. OTHERWISE, FALSE.
     const isAdmin = name === 'admin' || name === 'Admin' || name === 'ADMIN' && password === 'admin123' // Simple password check for admin access;
+=======
+    const { name } = useParams()
+>>>>>>> 075f609c5742ad2b693f01fef708e44a162f109f
+
+    // IF THE LOGGED IN NAME IS 'admin', THIS IS TRUE. OTHERWISE, FALSE.
+    const isAdmin = name === 'admin';
 
     const logout = () => {
         Navigate('/')
